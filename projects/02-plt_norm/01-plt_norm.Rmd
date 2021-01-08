@@ -1,0 +1,90 @@
+---
+title: "Complete normal results on platelets in GAIT 2 Study"
+author: "Miquel Vàzquez-Santiago"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: united
+    toc: true
+    keep_md: true
+---
+
+```{r options, echo = F}
+opts_chunk$set(fig.path = "figures/",
+							 comment = NA,
+							 tidy = F,
+							 message = F,
+							 warning = F,
+							 echo = F,
+							 results = 'verbatim')
+
+
+
+```{r par}
+alpha <- 0.05
+```
+
+# Library
+
+```{r inc, cache = F}
+library(knitr)
+library(rmarkdown)
+library(devtools)
+
+load_all("~/R/x86_64-pc-linux-gnu-library/3.3/solaris-master/")
+library(lmerTest)
+
+library(gridExtra)
+library(lattice)
+library(RColorBrewer)
+
+library(broom)
+library(pander)
+```
+
+```{r settings, cahe = F}
+theme_set(theme_light())
+
+panderOptions('table.split.table', Inf)
+panderOptions('knitr.auto.asis', FALSE)
+
+# par `models`
+lmerControl <- lmerControl(check.nobs.vs.nlev = "ignore",
+							 check.nobs.vs.nRE = "ignore", check.nobs.vs.rankZ = "ignore")
+```
+
+# Load data
+
+```{r data, cache = F, echo = T}
+# relation
+load("~/Datasets/GAIT_2/K.RData")
+
+# general data
+load_all()
+dat <- thesis.norm.platelets()
+
+## check
+stopifnot(sum(is.na(dat$IPFCT)) == 86)
+stopifnot(sum(is.na(dat$PFAepin)) == 34)
+```
+
+# Models
+
+```{r models}
+# variables
+vars <- thesis.traits.platelets()
+models <- list()
+
+# function
+for(i in vars){
+	cat("###", i, "\n")
+
+	covlist <- thesis.covlist_plt.norm(i)
+	mods <- thesis.mod.norm(dat, i, covlist)
+
+models[[length(models) + 1]] = mods
+}
+
+
+
+
