@@ -12,16 +12,27 @@ myphd_ddbb.mod.norm <- function(
 {
 ### arg
  	stat <- match.arg(stat, c('base', 'lme4qtl'))
- 	 
+
+
+### update data
+	df_1 <- df_mod %>% 
+		gather(trait, value, all_of(vars)) %>% 
+		group_by(trait) %>% 
+		nest()
+
 
 ### compute models
   sapply(vars, function(x) {
-		f <- formula(paste(x, ' ~ ', paste(covlist, collapse = '+'), '+', paste('(1|ID)')))
+		f <- formula(paste(x, ' ~ ', paste0(covlist, collapse = '+'), '+', paste('(1 | ID)')))
     
-		l_mod <- relmatLmer(
-			f, 
-			df_mod, 
-			relmat = list (ID = kinship_mod), 
+		mod <- relmatLmer(
+			formula = f, 
+			data = df_mod, 
+			relmat = list (ID = kinship_mod),
+			control = lmerControl(
+				check.nobs.vs.nlev = 'ignore',
+	  		check.nobs.vs.nRE = 'ignore',
+				check.nobs.vs.rankZ = 'ignore'),
 			REML = FALSE)
 		})
 }
