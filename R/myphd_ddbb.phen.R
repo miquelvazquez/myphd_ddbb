@@ -34,11 +34,16 @@ myphd_ddbb.phen <- function(dir)
 		### 'load()' 
 			load(l_files[['platelet_norm']])
 
-		### update 'data'
+		### update 'data' 
 			dat <- dat %>%
 				select(ID, starts_with('age'), gr, sex, con, smk, all_of(l_plt)) %>%
 				as_tibble()
-					
+
+			
+### double check ouliers #01
+## dat[['IPFCT']] > 14
+## dat[['PFAadp']] > 200
+## dat[['PFAepin']] > 280
 
 		### names()
 			l_dat <- list(dat, K)

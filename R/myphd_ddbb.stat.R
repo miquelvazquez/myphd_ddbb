@@ -8,7 +8,8 @@ myphd_ddbb.l_mods.norm <- function(
 	df_kinship,
 	vars,
 	covlist_mods,
-	# covlist_emmeans,
+	all_specs,
+	covlist_specs,
 	stat = c('base', 'lme4qtl', 'car', 'emmeans'))
 {
 ### arg
@@ -42,35 +43,43 @@ myphd_ddbb.l_mods.norm <- function(
 							check.nobs.vs.rankZ = 'ignore'),
 						REML = FALSE))),
 			aov_mods = map(l_mods,
-				~ try(Anova(.x, type = 'II', test.statistic = 'Chisq'))))
+				~ try(Anova(
+						mod = .x, 
+						type = 'II',
+test.statistic = 'Chisq'))))
+
+
+### double check #01
+	l_allspecs <- head(l_vars, 4)
+	l_anyspecs <- tail(l_vars, 11)
+	
+	stopifnot(head(df_1[['trait']], 4) %in% l_allspecs)
 
 
 ### compute 'emmeans'
+	df_head <- df_1 %>%
+		slice_head(n = length(l_allspecs)) %>%
+		slice(rep(1:n(), each = length(all_specs)))
 
+	df_tail <- df_1 %>%
+		slice_tail(n = length(l_anyspecs))
+
+
+	df_2 <- bind_rows(df_head, df_tail) %>%
+		mutate(
+			l_spec = map(covlist_specs, ~ paste0(.x)),
+			est_means = map2(l_mods, l_spec,
+				~ try(emmeans(
+						object = .x,
+						specs = .y))),
+			diff_means = map(est_means,
+				~ try(contrast(
+						object = .x,
+						method = 'pairwise',
+						adjust = 'bonferroni'))))
+						
 
 ### return
-	return(df_1)
+	return(df_2)
 
-}
-
-#---------------------
-# Normal steps `lmer`
-#---------------------
-
-#' @export
-thesis.step.norm <- function(phen, models, stat = c('base', 'lmer', 'lmerTest'))
-{
-  ### arg
-  stat <- match.arg(stat, c('base', 'lmer', 'lmerTest'))
-
-  ### compute models
-  lapply(models, function(x) {				
-				lstep <- step(as(as(x, 'merMod'), 'merModLmerTest'), reduce.fixed = F, reduce.random = F)
-
-	### extract elements
-	call <- print(data.frame(lstep$model))
-	fixed <- print(data.frame(summary(lmod)$coefficients))
-	mean <- print(data.frame(lstep$lsmeans.table))
-	stim <- print(data.frame(lstep$diffs.lsmeans.table))
-	})
 }
