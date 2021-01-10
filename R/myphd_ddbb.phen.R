@@ -27,16 +27,26 @@ myphd_ddbb.phen <- function(dir)
 ### list files
 	if(endsWith(l_files[[1]], 'RData') == TRUE) {
 
-		load(l_files[['platelet_norm']])
+		### vector of 'colnames()'
+			l_plt <- myphd_ddbb.traits.platelets()[['original_tr']]
 
 
-			### names()
-				l_dat <- list(dat, K)
+		### 'load()' 
+			load(l_files[['platelet_norm']])
+
+		### update 'data'
+			dat <- dat %>%
+				select(ID, starts_with('age'), gr, sex, con, smk, all_of(l_plt)) %>%
+				as_tibble()
+					
+
+		### names()
+			l_dat <- list(dat, K)
 				
-				names(l_dat) <- c('platelet_norm', 'K_matrix') 
+			names(l_dat) <- c('platelet_norm', 'K_matrix') 
 
-			### return
-  			return(l_dat)
+		### return
+ 			return(l_dat)
 	
 	} else {
 

@@ -1,40 +1,56 @@
-#---------------------
-# Normal models `lmer`
-#---------------------
+#--------------------------------------------
+# Normal models 'relmatLmer()' & 'emmeans()'
+#--------------------------------------------
 
 #' @export
-myphd_ddbb.mod.norm <- function(
-	df_mod,
-	kinship_mod,
+myphd_ddbb.l_mods.norm <- function(
+	df_mods,
+	df_kinship,
 	vars,
-	covlist, 
-	stat = c('base', 'lme4qtl'))
+	covlist_mods,
+	# covlist_emmeans,
+	stat = c('base', 'lme4qtl', 'car', 'emmeans'))
 {
 ### arg
- 	stat <- match.arg(stat, c('base', 'lme4qtl'))
+ 	stat <- match.arg(stat, c('base', 'lme4qtl', 'car' ,'emmeans'))
 
 
-### update data
-	df_1 <- df_mod %>% 
+### transform 'data'
+	df_1 <- df_mods %>% 
 		gather(trait, value, all_of(vars)) %>% 
-		group_by(trait) %>% 
-		nest()
+		group_by(trait) %>%
+		group_nest()
+
+
+### force 'sort()'
+	df_1 <- df_1[order(factor(df_1[['trait']], levels = unique(vars))), ]
 
 
 ### compute models
-  sapply(vars, function(x) {
-		f <- formula(paste(x, ' ~ ', paste0(covlist, collapse = '+'), '+', paste('(1 | ID)')))
-    
-		mod <- relmatLmer(
-			formula = f, 
-			data = df_mod, 
-			relmat = list (ID = kinship_mod),
-			control = lmerControl(
-				check.nobs.vs.nlev = 'ignore',
-	  		check.nobs.vs.nRE = 'ignore',
-				check.nobs.vs.rankZ = 'ignore'),
-			REML = FALSE)
-		})
+	df_1 <- df_1 %>%
+		mutate(
+			l_form = map2(trait, covlist_mods, 
+				~ paste0( 'value ~ ', paste0(.y, collapse = ' + '), ' + ', paste0('(1 | ID)'))),
+			l_mods = map2(data, l_form,
+        ~ try(relmatLmer(
+						formula = as.formula(.y),
+						data = .x,
+						relmat = list(ID = df_kinship),
+						control = lmerControl(
+							check.nobs.vs.nlev = 'ignore',
+	  					check.nobs.vs.nRE = 'ignore',
+							check.nobs.vs.rankZ = 'ignore'),
+						REML = FALSE))),
+			aov_mods = map(l_mods,
+				~ try(Anova(.x, type = 'II', test.statistic = 'Chisq'))))
+
+
+### compute 'emmeans'
+
+
+### return
+	return(df_1)
+
 }
 
 #---------------------
