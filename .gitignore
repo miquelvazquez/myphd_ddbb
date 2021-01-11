@@ -2,3 +2,6 @@
 *.RData
 *.csv
 *.xls
+*.tex
+*.pdf
+
