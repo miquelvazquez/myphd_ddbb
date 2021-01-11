@@ -34,7 +34,7 @@ date: '`r Sys.Date()`'
 ### knitr options
   knitr::opts_chunk$set(
     comment = NA,
-    fig.path = '00_fig_platelet_norm/',
+    fig.path = '01_fig_01_lme4qtl_emmeans_mods.Rmd/',
     fig.width = 20,
     fig.height = 12,
     results = 'markup',
