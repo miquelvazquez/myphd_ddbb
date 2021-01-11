@@ -1,0 +1,129 @@
+---
+title: 'Age and gender effects on 15 phenotypes in a Spanish population'
+
+geometry: margin = 1in
+fontsize: 10pt
+keep_text: yes
+df_print: tibble
+highlight: zenburn
+
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: 2
+    number_sections: yes
+    fig_width: 20
+    fig_height: 12
+    fig_caption: yes
+
+author: 'Malaria Immunology Statistics'
+date: '`r Sys.Date()`'
+---
+
+
+```{r setup, include = FALSE}
+
+### knitr setup
+  knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+
+```{r options, echo = FALSE}
+
+### knitr options
+  knitr::opts_chunk$set(
+    comment = NA,
+    fig.path = '00_fig_platelet_norm/',
+    fig.width = 20,
+    fig.height = 12,
+    results = 'markup',
+    tidy = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    echo = FALSE)
+### options tinytex
+  options(tinytex.verbose = FALSE)
+
+```
+
+
+
+\newpage
+# r packages
+
+```{r libraries, include = TRUE, echo = TRUE}
+
+pacman::p_load(
+  devtools, rmarkdown,
+  knitr, tinytex, install = TRUE)
+
+```
+
+
+```{r setup_home, include = FALSE, echo = FALSE}
+
+### site in 'home'
+  setwd(Sys.getenv('HOME'))
+  document('~/my_git/myphd_ddbb')
+  load_all('~/my_git/myphd_ddbb')
+
+  # load packages
+    myphd_ddbb.required_packages()
+
+```
+
+
+\newpage
+# load data
+
+* the `myphd_ddbb.phen()` lists all data for platelet normal population.
+\newline
+
+```{r load_data, cache = FALSE, echo = TRUE, results = 'asis'}
+
+### load data
+	dat <- myphd_ddbb.phen()
+
+
+	# list of objects
+		l_vars <- myphd_ddbb.traits.platelets()[['original_tr']]
+		l_covlist <- myphd_ddbb.covlist_plt.norm()
+		all_specs <- c('gr', 'sex', 'gr_sex')		
+		l_emmeans <- myphd_ddbb.specs_plt.norm()
+
+```
+
+
+\newpage
+## dataset format
+
+```{r}
+
+### dataset format
+  dat[[1]] %>%
+   select(ID, starts_with('age'), gr, sex, all_of(head(l_vars, 9)), all_of(tail(l_vars, 2))) %>%
+   head(12)
+
+```
+
+
+\newpage
+# 'lme4qtl' and 'emmeans' models
+
+* the `myphd_ddbb.l_mods.norm()` extract `linear mixed models` and `emmeans` models.
+
+\newline
+
+```{r lme4qtl_mods, cache = FALSE, echo = TRUE, results = 'asis'}
+
+### 'l_mods' & 'l_emmeans'
+	l_mods <- myphd_ddbb.l_mods.norm(
+		df_mods = dat[[1]],
+		df_kinship = dat[[2]],
+		vars = l_vars,
+		covlist_mods = l_covlist,
+		all_specs = all_specs,
+		covlist_specs = l_emmeans)
+
+```

@@ -1,0 +1,205 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  10pt,
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Age and gender effects on 15 phenotypes in a Spanish population},
+  pdfauthor={Malaria Immunology Statistics},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin = 1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+
+\title{Age and gender effects on 15 phenotypes in a Spanish population}
+\author{Malaria Immunology Statistics}
+\date{2021-01-11}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\newpage
+
+\hypertarget{r-packages}{%
+\section{r packages}\label{r-packages}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(}
+\NormalTok{  devtools, rmarkdown,}
+\NormalTok{  knitr, tinytex, }\DataTypeTok{install =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
+
+\hypertarget{load-data}{%
+\section{load data}\label{load-data}}
+
+\begin{itemize}
+\tightlist
+\item
+  the \texttt{myphd\_ddbb.phen()} lists all data for platelet normal
+  population. \newline
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{### load data}
+\NormalTok{    dat <-}\StringTok{ }\KeywordTok{myphd_ddbb.phen}\NormalTok{()}
+
+
+    \CommentTok{# list of objects}
+\NormalTok{        l_vars <-}\StringTok{ }\KeywordTok{myphd_ddbb.traits.platelets}\NormalTok{()[[}\StringTok{'original_tr'}\NormalTok{]]}
+\NormalTok{        l_covlist <-}\StringTok{ }\KeywordTok{myphd_ddbb.covlist_plt.norm}\NormalTok{()}
+\NormalTok{        all_specs <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'gr'}\NormalTok{, }\StringTok{'sex'}\NormalTok{, }\StringTok{'gr_sex'}\NormalTok{)       }
+\NormalTok{        l_emmeans <-}\StringTok{ }\KeywordTok{myphd_ddbb.specs_plt.norm}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\newpage
+
+\hypertarget{dataset-format}{%
+\subsection{dataset format}\label{dataset-format}}
+
+\begin{verbatim}
+# A tibble: 12 x 16
+   ID      age   age_c gr    sex    PTES  PTOP  PT40 PCTES VPMES VPM40 PCT40   PDW   PTG PFAadp PFAepin
+   <chr> <dbl>   <dbl> <fct> <fct> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl>   <dbl>
+ 1 31201  82.7  -0.759 4     M       163   159   167  0.17  10.7  11.5 0.192  12.9  30.4     85     125
+ 2 31202  83.1  -0.402 4     F       156   171   187  0.15   9.4  12.4 0.232  10    19.2     99      97
+ 3 31303  58.3  16.3   3     F       201   203   230  0.19   9.3  11.9 0.274  10.5  18.3    100     137
+ 4 31304  53.0  11.0   3     M       214   211   211  0.24  11.2  12.4 0.262  13.6  34.5     54      94
+ 5 31307  50.6   8.61  3     F       283   292   327  0.27   9.5  12.4 0.405  10.5  20.2    133     158
+ 6 31310  37.7  -4.27  3     F       241   247   241  0.27  11.2  12.4 0.299  14.5  35.6     81     183
+ 7 31311  40.8  -1.24  3     F       225   240   201  0.23  10.5  11   0.221  11.9  27.7     63      76
+ 8 31402  35.9  -6.06  3     M       165   172   186  0.16   9.8  13.7 0.255  11.3  24.1     95     121
+ 9 31403  26.9 -15.1   3     F       221   241   253  0.21   9.6  10.4 0.263  10.4  20.5     97     128
+10 31404  27.9 -14.1   3     M       226   244   274  0.23  10    12.7 0.348  12.1  25.6     92     164
+11 31405  24.4 -17.6   3     F       205   213   258  0.21  10.2  14.1 0.364  12.1  27.1     68     103
+12 31406  23.1 -18.9   3     M       297   291   278  0.31  10.4  10.6 0.295  12.2  27.9     72      81
+\end{verbatim}
+
+\newpage
+
+\hypertarget{lme4qtl-and-emmeans-models}{%
+\section{`lme4qtl' and `emmeans'
+models}\label{lme4qtl-and-emmeans-models}}
+
+\begin{itemize}
+\tightlist
+\item
+  the \texttt{myphd\_ddbb.l\_mods.norm()} extract
+  \texttt{linear\ mixed\ models} and \texttt{emmeans} models.
+\end{itemize}
+
+\newline
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{### 'l_mods' & 'l_emmeans'}
+\NormalTok{    l_mods <-}\StringTok{ }\KeywordTok{myphd_ddbb.l_mods.norm}\NormalTok{(}
+        \DataTypeTok{df_mods =}\NormalTok{ dat[[}\DecValTok{1}\NormalTok{]],}
+        \DataTypeTok{df_kinship =}\NormalTok{ dat[[}\DecValTok{2}\NormalTok{]],}
+        \DataTypeTok{vars =}\NormalTok{ l_vars,}
+        \DataTypeTok{covlist_mods =}\NormalTok{ l_covlist,}
+        \DataTypeTok{all_specs =}\NormalTok{ all_specs,}
+        \DataTypeTok{covlist_specs =}\NormalTok{ l_emmeans)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{document}
