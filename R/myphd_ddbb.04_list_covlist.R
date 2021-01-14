@@ -16,7 +16,7 @@ myphd_ddbb.covlist_plt.norm <- function(traits)
 		PTOP = c('gr * age_c', 'gr * sex'), 
 		PT40 = c('gr * age_c', 'gr * sex'), ## lmer failed
 		PCTES = c('gr * age_c', 'gr * sex'), ## lmer failed
-		VPMES = c('gr + gr * age_c'),
+		VPMES = c('gr * age_c'),
 		VPM40 = c('gr'), 
 		PCT40 = c('gr * age_c'),  ## lmer failed
 		PDW = c('gr * age_c'),

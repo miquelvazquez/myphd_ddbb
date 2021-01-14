@@ -42,6 +42,8 @@ date: '`r Sys.Date()`'
     message = FALSE,
     warning = FALSE,
     echo = FALSE)
+
+
 ### options tinytex
   options(tinytex.verbose = FALSE)
 
@@ -118,12 +120,13 @@ pacman::p_load(
 ```{r lme4qtl_mods, cache = FALSE, echo = TRUE, results = 'asis'}
 
 ### 'l_mods' & 'l_emmeans'
-	l_mods <- myphd_ddbb.l_mods.norm(
-		df_mods = dat[[1]],
-		df_kinship = dat[[2]],
-		vars = l_vars,
-		covlist_mods = l_covlist,
-		all_specs = all_specs,
-		covlist_specs = l_emmeans)
+	l_mods <- suppressMessages(
+		myphd_ddbb.l_mods.norm(
+			df_mods = dat[[1]],
+			df_kinship = dat[[2]],
+			vars = l_vars,
+			covlist_mods = l_covlist,
+			all_specs = all_specs,
+			covlist_specs = l_emmeans))
 
 ```
